@@ -1,11 +1,15 @@
 import type { Parser } from './types.js'
 
+type StringToChars<S extends string> = S extends `${infer T}${infer Rest}`
+	? T | StringToChars<Rest>
+	: never
+
 /**
  * 指定した文字列のいずれか1文字を読み取るパーサ
  * @param options
  */
 export const anyCharOf =
-	(options: string): Parser<string> =>
+	<T extends string>(options: T): Parser<StringToChars<T>> =>
 		({ input, position = 0 }) => {
 			if (position >= input.length) {
 				return {
@@ -20,7 +24,7 @@ export const anyCharOf =
 			return options.includes(char)
 				? {
 					type: 'Success',
-					value: char,
+					value: char as StringToChars<T>,
 					state: { input, position: position + 1 }
 				}
 				: {
@@ -29,3 +33,10 @@ export const anyCharOf =
 					state: { input, position }
 				}
 		}
+
+const parser: Parser<'a' | 'b' | 'c'> = anyCharOf('abc')
+const result = parser({ input: 'a' })
+
+if (result.type === 'Success') {
+	const value: 'a' | 'b' | 'c' = result.value
+}
