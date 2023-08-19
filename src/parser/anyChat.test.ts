@@ -1,7 +1,7 @@
 import { anyChar } from './anyChar.js'
 
 describe('anyChar', () => {
-	it('入力が空文字のときはパースに失敗する', () => {
+	it('入力が空文字のときは、パースに失敗する', () => {
 		const input = ''
 		const output = anyChar({ input })
 
