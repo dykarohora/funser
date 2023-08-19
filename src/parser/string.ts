@@ -5,7 +5,7 @@ import type { Parser } from './types.js'
  * @param str
  */
 export const string =
-	(str: string): Parser<string> =>
+	<T extends string>(str: T): Parser<T> =>
 		({ input, position = 0 }) => {
 			if (position + str.length > input.length) {
 				return {

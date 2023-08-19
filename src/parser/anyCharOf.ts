@@ -33,10 +33,3 @@ export const anyCharOf =
 					state: { input, position }
 				}
 		}
-
-const parser: Parser<'a' | 'b' | 'c'> = anyCharOf('abc')
-const result = parser({ input: 'a' })
-
-if (result.type === 'Success') {
-	const value: 'a' | 'b' | 'c' = result.value
-}
