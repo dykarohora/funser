@@ -3,21 +3,20 @@ module.exports = {
 		browser: true,
 		es2021: true,
 	},
-	ignorePatterns: ["/dist/*", "/node_modules/*"],
+	ignorePatterns: ['/dist/*', '/node_modules/*'],
 	extends: 'xo',
 	overrides: [
 		{
 			extends: [
+				'xo',
 				'xo-typescript',
+				'prettier'
 			],
 			files: [
 				'*.ts',
 				'*.tsx',
 			],
-			rules: {
-				'semi': 'off',
-				'@typescript-eslint/semi': 'off',
-			},
+			rules: {},
 		},
 	],
 	parserOptions: {
@@ -25,4 +24,4 @@ module.exports = {
 		sourceType: 'module',
 	},
 
-};
+}
