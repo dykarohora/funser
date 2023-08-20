@@ -3,6 +3,24 @@ import { string } from '../parser/string.js'
 import { anyCharOf } from '../parser/anyCharOf.js'
 
 describe('or', () => {
+	describe('or()', () => {
+		const parser = or()
+
+		it('入力が空のときは、パースに失敗する', () => {
+			const input = ''
+			const output = parser({ input })
+
+			expect(output.type).toEqual('Failure')
+		})
+
+		it('入力が"a"のときは、パースに失敗する', () => {
+			const input = 'a'
+			const output = parser({ input })
+
+			expect(output.type).toEqual('Failure')
+		})
+	})
+
 	describe('or with anyCharOf', () => {
 		const parser = or(
 			anyCharOf('a'),
