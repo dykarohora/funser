@@ -1,10 +1,8 @@
-import type { ParsedValue, Parser } from '../parser/types.js'
+import type { ParsedSeqValue, Parser, SeqCombinator } from '../parser/types.js'
 
-type SequentialValue<T extends Array<Parser<unknown>>> = { [K in keyof T]: ParsedValue<T[K]> }
-
-export function seq<T extends Array<Parser<unknown>>>(...parsers: [...T]): Parser<SequentialValue<T>> {
-	return ({ input, position = 0 }) => {
-		const values = [] as SequentialValue<T>
+export function seq<T extends Array<Parser<unknown>>>(...parsers: [...T]): SeqCombinator<T> {
+	const parser: Parser<ParsedSeqValue<T>> = ({ input, position = 0 }) => {
+		const values = [] as ParsedSeqValue<T>
 
 		let currentPos = position
 		for (const parser of parsers) {
@@ -24,4 +22,6 @@ export function seq<T extends Array<Parser<unknown>>>(...parsers: [...T]): Parse
 			state: { input, position: currentPos }
 		}
 	}
+
+	return Object.assign(parser, { type: 'seq' as const })
 }

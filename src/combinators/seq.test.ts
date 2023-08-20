@@ -2,6 +2,7 @@ import { seq } from './seq.js'
 import { anyCharOf } from '../parser/anyCharOf.js'
 import { or } from './or.js'
 import { string } from '../parser/string.js'
+import { Parser } from '../parser/types.js'
 
 describe('seq', () => {
 	describe('seq()', () => {
@@ -118,6 +119,15 @@ describe('seq', () => {
 				),
 				string('world')
 			)
+
+		//
+		// const parse: Parser<['hello ' | 'hi ', 'world', '!!'] | 'vv' | 'ww' > =
+		// 	pipe(
+		// 		or(string('hello '), string('hi ')),
+		// 		seq(string('world')),
+		// 		seq(string('!!')),
+		// 		or(string('vv'), string('ww'))
+		// 	)
 
 		it('入力が空のときは、パースに失敗する', () => {
 			const input = ''
