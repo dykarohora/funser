@@ -1,6 +1,5 @@
-import type { Parser } from '../parser/types.js'
+import type { ParsedValue, Parser } from '../parser/types.js'
 
-type ParsedValue<P> = P extends Parser<infer T> ? T : never
 type SequentialValue<T extends Array<Parser<unknown>>> = { [K in keyof T]: ParsedValue<T[K]> }
 
 export function seq<T extends Array<Parser<unknown>>>(...parsers: [...T]): Parser<SequentialValue<T>> {

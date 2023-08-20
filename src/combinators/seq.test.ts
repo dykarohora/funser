@@ -1,5 +1,7 @@
 import { seq } from './seq.js'
 import { anyCharOf } from '../parser/anyCharOf.js'
+import { or } from './or.js'
+import { string } from '../parser/string.js'
 
 describe('seq', () => {
 	describe('seq()', () => {
@@ -104,6 +106,69 @@ describe('seq', () => {
 
 			expect(output.value).toEqual(['a', 'b'])
 			expect(output.state.position).toEqual(3)
+		})
+	})
+
+	describe('seq and or', () => {
+		const parser =
+			seq(
+				or(
+					string('hello '),
+					string('hi ')
+				),
+				string('world')
+			)
+
+		it('入力が空のときは、パースに失敗する', () => {
+			const input = ''
+			const output = parser({ input })
+
+			expect(output.type).toEqual('Failure')
+		})
+
+		it('入力が"hello world"のときは、パースに成功し結果として["hello ", "world"]を取得できる', () => {
+			const input = 'hello world'
+			const output = parser({ input })
+
+			if (output.type === 'Failure') {
+				throw new Error('test failed')
+			}
+
+			expect(output.value).toEqual(['hello ', 'world'])
+			expect(output.state.position).toEqual(11)
+		})
+
+		it('入力が"hi world"のときは、パースに成功し結果として["hi ", "world"]を取得できる', () => {
+			const input = 'hi world'
+			const output = parser({ input })
+
+			if (output.type === 'Failure') {
+				throw new Error('test failed')
+			}
+
+			expect(output.value).toEqual(['hi ', 'world'])
+			expect(output.state.position).toEqual(8)
+		})
+
+		it('入力が"hello "のときは、パースに失敗する', () => {
+			const input = 'hello '
+			const output = parser({ input })
+
+			expect(output.type).toEqual('Failure')
+		})
+
+		it('入力が"hi "のときは、パースに失敗する', () => {
+			const input = 'hi '
+			const output = parser({ input })
+
+			expect(output.type).toEqual('Failure')
+		})
+
+		it('入力が"world"のときは、パースに失敗する', () => {
+			const input = 'world'
+			const output = parser({ input })
+
+			expect(output.type).toEqual('Failure')
 		})
 	})
 })

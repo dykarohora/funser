@@ -1,6 +1,7 @@
 import { or } from './or.js'
 import { string } from '../parser/string.js'
 import { anyCharOf } from '../parser/anyCharOf.js'
+import { seq } from './seq.js'
 
 describe('or', () => {
 	describe('or()', () => {
@@ -142,6 +143,55 @@ describe('or', () => {
 
 		it('入力が"orange"のときは、パースに失敗する', () => {
 			const input = 'orange'
+			const output = parser({ input })
+
+			expect(output.type).toEqual('Failure')
+		})
+	})
+
+	describe('or and seq', () => {
+		const parser =
+			or(
+				seq(
+					string('banana '),
+					string('apple')
+				),
+				string('orange')
+			)
+
+		it('入力が空のときは、パースに失敗する', () => {
+			const input = ''
+			const output = parser({ input })
+
+			expect(output.type).toEqual('Failure')
+		})
+
+		it('入力が"banana apple"のときは、パースに成功し結果として"banana apple"を取得できる', () => {
+			const input = 'banana apple'
+			const output = parser({ input })
+
+			if (output.type === 'Failure') {
+				throw new Error('test failed')
+			}
+
+			expect(output.value).toEqual(['banana ', 'apple'])
+			expect(output.state.position).toEqual(12)
+		})
+
+		it('入力が"orange"のときは、パースに成功し結果として"orange"を取得できる', () => {
+			const input = 'orange'
+			const output = parser({ input })
+
+			if (output.type === 'Failure') {
+				throw new Error('test failed')
+			}
+
+			expect(output.value).toEqual('orange')
+			expect(output.state.position).toEqual(6)
+		})
+
+		it('入力が"banana "のときは、パースに失敗する', () => {
+			const input = 'banana '
 			const output = parser({ input })
 
 			expect(output.type).toEqual('Failure')
