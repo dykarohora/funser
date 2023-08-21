@@ -1,7 +1,11 @@
-import type { Parser } from '../parser/types.js'
+import type { Parser } from '../types.js'
 
-export function seq<ExpectValues extends unknown[]>(...parsers: { [K in keyof ExpectValues]: Parser<ExpectValues[K]> }) {
-	return <SourceValue>(sourceParser: Parser<SourceValue>): Parser<[SourceValue, ...ExpectValues]> =>
+/**
+ * パーサを直列に接続するコンビネータ
+ * @param parsers
+ */
+export const seq = <ExpectValues extends unknown[]>(...parsers: { [K in keyof ExpectValues]: Parser<ExpectValues[K]> }) =>
+	<SourceValue>(sourceParser: Parser<SourceValue>): Parser<[SourceValue, ...ExpectValues]> =>
 		({ input, position = 0 }) => {
 			const values = []
 
@@ -23,5 +27,4 @@ export function seq<ExpectValues extends unknown[]>(...parsers: { [K in keyof Ex
 				state: { input, position: currentPos }
 			}
 		}
-}
 

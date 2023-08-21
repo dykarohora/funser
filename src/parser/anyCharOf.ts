@@ -1,4 +1,4 @@
-import type { Parser } from './types.js'
+import type { Parser } from '../types.js'
 
 type StringToChars<S extends string> = S extends `${infer T}${infer Rest}`
 	? T | StringToChars<Rest>

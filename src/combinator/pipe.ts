@@ -1,4 +1,4 @@
-import type { Combinator, Parser } from '../parser/types.js'
+import type { Combinator, Parser } from '../types.js'
 
 export function pipe<T1>(sourceParser: Parser<T1>): Parser<T1>
 export function pipe<T1, T2>(sourceParser: Parser<T1>, c1: Combinator<T1, T2>): Parser<T2>

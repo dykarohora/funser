@@ -1,5 +1,9 @@
-import type { ParsedSeqValue, Parser } from './types.js'
+import type { ParsedSeqValue, Parser } from '../types.js'
 
+/**
+ * 複数のパーサを順番に実行し、すべてのパースが成功したら結果をタプルで返すパーサ
+ * @param parsers
+ */
 export function seq<T extends Array<Parser<unknown>>>(...parsers: [...T]): Parser<ParsedSeqValue<T>> {
 	return ({ input, position = 0 }) => {
 		const values = [] as ParsedSeqValue<T>

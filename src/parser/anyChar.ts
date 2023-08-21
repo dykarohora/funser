@@ -1,4 +1,4 @@
-import type { Parser } from './types.js'
+import type { Parser } from '../types.js'
 
 /**
  * 任意の1文字を読み取るパーサ

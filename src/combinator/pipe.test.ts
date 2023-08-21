@@ -4,7 +4,7 @@ import { seq as sequential } from '../parser/seq.js'
 import { or } from './or.js'
 import { or as alternative } from '../parser/or.js'
 import { pipe } from './pipe.js'
-import { Parser } from '../parser/types.js'
+import { Parser } from '../types.js'
 
 describe('pipe', () => {
 	it('引数が一つのとき、引数に渡したパーサがそのまま返ってくる', () => {

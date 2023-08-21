@@ -1,4 +1,4 @@
-import type { Parser } from './types.js'
+import type { Parser } from '../types.js'
 
 /**
  * 指定した文字列を読み取るパーサ
