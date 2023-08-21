@@ -1,23 +1,20 @@
-import type { Combinator, OrCombinator, ParsedOrValue, Parser, ParserOutput } from '../parser/types.js'
-import { string } from '../parser/string.js'
-import { seq } from './seq.js'
+import type { Parser } from '../parser/types.js'
 
-export function or<T extends Array<Parser<unknown>>>(...parsers: [...T]): OrCombinator<T> {
-	const f: Parser<ParsedOrValue<T>> = ({ input, position = 0 }) => {
-		for (const parser of parsers) {
-			const result = parser({ input, position })
+export function or<ExpectValues extends unknown[]>(...parsers: { [K in keyof ExpectValues]: Parser<ExpectValues[K]> }) {
+	return <SourceValue>(sourceParser: Parser<SourceValue>): Parser<SourceValue | ExpectValues[number]> =>
+		({ input, position = 0 }) => {
+			for (const parser of [sourceParser, ...parsers]) {
+				const result = parser({ input, position })
 
-			if (result.type === 'Success') {
-				return result as ParserOutput<ParsedOrValue<T>>
+				if (result.type === 'Success') {
+					return result
+				}
+			}
+
+			return {
+				type: 'Failure',
+				reason: 'all parsers failed',
+				state: { input, position }
 			}
 		}
-
-		return {
-			type: 'Failure',
-			reason: 'all parsers failed',
-			state: { input, position }
-		}
-	}
-
-	return Object.assign(f, { type: 'or' as const })
 }

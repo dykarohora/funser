@@ -1,8 +1,7 @@
 import { seq } from './seq.js'
-import { anyCharOf } from '../parser/anyCharOf.js'
+import { anyCharOf } from './anyCharOf.js'
 import { or } from './or.js'
-import { string } from '../parser/string.js'
-import { Parser } from '../parser/types.js'
+import { string } from './string.js'
 
 describe('seq', () => {
 	describe('seq()', () => {

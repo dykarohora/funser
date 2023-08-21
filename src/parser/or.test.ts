@@ -1,8 +1,7 @@
 import { or } from './or.js'
-import { string } from '../parser/string.js'
-import { anyCharOf } from '../parser/anyCharOf.js'
+import { string } from './string.js'
+import { anyCharOf } from './anyCharOf.js'
 import { seq } from './seq.js'
-import { Parser } from '../parser/types.js'
 
 describe('or', () => {
 	describe('or()', () => {
