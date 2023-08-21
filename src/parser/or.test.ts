@@ -3,7 +3,7 @@ import { string } from './string.js'
 import { anyCharOf } from './anyCharOf.js'
 import { seq } from './seq.js'
 
-describe('or', () => {
+describe('or parser', () => {
 	describe('or()', () => {
 		const parser = or()
 
