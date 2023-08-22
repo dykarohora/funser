@@ -14,7 +14,7 @@ export const seq = <ExpectValues extends unknown[]>(...parsers: { [K in keyof Ex
 				const result = parser({ input, position: currentPos })
 
 				if (result.type === 'Failure') {
-					return result
+					return { ...result, state: { input, position } }
 				}
 
 				values.push(result.value)

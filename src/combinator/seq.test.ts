@@ -9,6 +9,7 @@ describe('seq', () => {
 		const output = parser({ input })
 
 		expect(output.type).toEqual('Failure')
+		expect(output.state.position).toEqual(0)
 	})
 
 	it('入力が"a"のときは、パースに失敗する', () => {
@@ -16,6 +17,7 @@ describe('seq', () => {
 		const output = parser({ input })
 
 		expect(output.type).toEqual('Failure')
+		expect(output.state.position).toEqual(0)
 	})
 
 	it('入力が"ab"のときは、パースに失敗する', () => {
@@ -23,6 +25,7 @@ describe('seq', () => {
 		const output = parser({ input })
 
 		expect(output.type).toEqual('Failure')
+		expect(output.state.position).toEqual(0)
 	})
 
 	it('入力が"ac"のときは、パースに失敗する', () => {
@@ -30,6 +33,7 @@ describe('seq', () => {
 		const output = parser({ input })
 
 		expect(output.type).toEqual('Failure')
+		expect(output.state.position).toEqual(0)
 	})
 
 	it('入力が"abc"のときは、パースに成功し結果として["a", "b", "c"]を取得できる', () => {
@@ -42,5 +46,13 @@ describe('seq', () => {
 
 		expect(output.value).toEqual(['a', 'b', 'c'])
 		expect(output.state.position).toEqual(3)
+	})
+
+	it('入力が"aabd"のときにパースの開始位置を1としたとき、パースに失敗する', () => {
+		const input = 'aabd'
+		const output = parser({ input, position: 1 })
+
+		expect(output.type).toEqual('Failure')
+		expect(output.state.position).toEqual(1)
 	})
 })

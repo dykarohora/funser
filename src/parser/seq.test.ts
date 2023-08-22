@@ -16,6 +16,7 @@ describe('seq test', () => {
 			}
 
 			expect(output.value).toEqual([])
+			expect(output.state.position).toEqual(0)
 		})
 
 		it('入力が"a"のときは、パースに成功し結果として[]を取得できる', () => {
@@ -42,6 +43,7 @@ describe('seq test', () => {
 			const output = parser({ input })
 
 			expect(output.type).toEqual('Failure')
+			expect(output.state.position).toEqual(0)
 		})
 
 		it('入力が"a"のときは、パースに失敗する', () => {
@@ -49,6 +51,7 @@ describe('seq test', () => {
 			const output = parser({ input })
 
 			expect(output.type).toEqual('Failure')
+			expect(output.state.position).toEqual(0)
 		})
 
 		it('入力が"b"のときは、パースに失敗する', () => {
@@ -56,6 +59,7 @@ describe('seq test', () => {
 			const output = parser({ input })
 
 			expect(output.type).toEqual('Failure')
+			expect(output.state.position).toEqual(0)
 		})
 
 		it('入力が"ab"のときは、パースに成功し結果として["a", "b"]を取得できる', () => {
@@ -87,6 +91,7 @@ describe('seq test', () => {
 			const output = parser({ input })
 
 			expect(output.type).toEqual('Failure')
+			expect(output.state.position).toEqual(0)
 		})
 
 		it('入力が"cab"のときは、パースに失敗する', () => {
@@ -94,6 +99,7 @@ describe('seq test', () => {
 			const output = parser({ input })
 
 			expect(output.type).toEqual('Failure')
+			expect(output.state.position).toEqual(0)
 		})
 
 		it('入力が"cab"でパースの開始位置が1のときは、パースに成功し結果として["a", "b"]を取得できる', () => {
@@ -107,6 +113,14 @@ describe('seq test', () => {
 			expect(output.value).toEqual(['a', 'b'])
 			expect(output.state.position).toEqual(3)
 		})
+
+		it('入力が"cacb"でパースの開始位置が1のときは、パースに失敗する', () => {
+			const input = 'cacb'
+			const output = parser({ input, position: 1 })
+
+			expect(output.type).toEqual('Failure')
+			expect(output.state.position).toEqual(1)
+		})
 	})
 
 	describe('seq and or', () => {
@@ -119,20 +133,12 @@ describe('seq test', () => {
 				string('world')
 			)
 
-		//
-		// const parse: Parser<['hello ' | 'hi ', 'world', '!!'] | 'vv' | 'ww' > =
-		// 	pipe(
-		// 		or(string('hello '), string('hi ')),
-		// 		seq(string('world')),
-		// 		seq(string('!!')),
-		// 		or(string('vv'), string('ww'))
-		// 	)
-
 		it('入力が空のときは、パースに失敗する', () => {
 			const input = ''
 			const output = parser({ input })
 
 			expect(output.type).toEqual('Failure')
+			expect(output.state.position).toEqual(0)
 		})
 
 		it('入力が"hello world"のときは、パースに成功し結果として["hello ", "world"]を取得できる', () => {
@@ -164,6 +170,7 @@ describe('seq test', () => {
 			const output = parser({ input })
 
 			expect(output.type).toEqual('Failure')
+			expect(output.state.position).toEqual(0)
 		})
 
 		it('入力が"hi "のときは、パースに失敗する', () => {
@@ -171,6 +178,7 @@ describe('seq test', () => {
 			const output = parser({ input })
 
 			expect(output.type).toEqual('Failure')
+			expect(output.state.position).toEqual(0)
 		})
 
 		it('入力が"world"のときは、パースに失敗する', () => {
@@ -178,6 +186,15 @@ describe('seq test', () => {
 			const output = parser({ input })
 
 			expect(output.type).toEqual('Failure')
+			expect(output.state.position).toEqual(0)
+		})
+
+		it('入力が"ahello wor"でパースの開始位置が1のときは、パースに失敗する', () => {
+			const input = 'ahello wor'
+			const output = parser({ input, position: 1 })
+
+			expect(output.type).toEqual('Failure')
+			expect(output.state.position).toEqual(1)
 		})
 	})
 })
