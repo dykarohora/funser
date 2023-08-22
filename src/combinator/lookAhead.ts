@@ -11,5 +11,5 @@ export const lookAhead =
 		(first: Parser<U>): Parser<U> =>
 			pipe(
 				seq(first, second),
-				map(([first, second]) => first)
+				map(([first, _]) => first)
 			)
