@@ -1,8 +1,8 @@
 import { string } from '../parser/string.js'
 import { seq } from './seq.js'
-import { seq as sequential } from '../parser/seq.js'
+import { seqParser as sequential } from '../parser/seqParser.js'
 import { or } from './or.js'
-import { or as alternative } from '../parser/or.js'
+import { orParser as alternative } from '../parser/orParser.js'
 import { pipe } from './pipe.js'
 import { Parser } from '../types.js'
 

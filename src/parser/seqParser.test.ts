@@ -1,11 +1,11 @@
-import { seq } from './seq.js'
+import { seqParser } from './seqParser.js'
 import { anyCharOf } from './anyCharOf.js'
-import { or } from './or.js'
+import { orParser } from './orParser.js'
 import { string } from './string.js'
 
 describe('seq test', () => {
 	describe('seq()', () => {
-		const parser = seq()
+		const parser = seqParser()
 
 		it('入力が空のときは、パースに成功し結果として[]を取得できる', () => {
 			const input = ''
@@ -33,7 +33,7 @@ describe('seq test', () => {
 	})
 
 	describe('seq(...parser)', () => {
-		const parser = seq(
+		const parser = seqParser(
 			anyCharOf('a'),
 			anyCharOf('b'),
 		)
@@ -125,8 +125,8 @@ describe('seq test', () => {
 
 	describe('seq and or', () => {
 		const parser =
-			seq(
-				or(
+			seqParser(
+				orParser(
 					string('hello '),
 					string('hi ')
 				),

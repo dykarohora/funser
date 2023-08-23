@@ -1,6 +1,6 @@
 import type{ Parser } from '../types.js'
 import { pipe } from './pipe.js'
-import { seq } from '../parser/seq.js'
+import { seqParser } from '../parser/seqParser.js'
 import { map } from './map.js'
 
 /**
@@ -11,6 +11,6 @@ export const lookBehind =
 	<T, U>(second: Parser<T>) =>
 		(first: Parser<U>): Parser<T> =>
 			pipe(
-				seq(first, second),
+				seqParser(first, second),
 				map(([_, second]) => second)
 			)

@@ -4,7 +4,7 @@ import type { ParsedSeqValue, Parser } from '../types.js'
  * 複数のパーサを順番に実行し、すべてのパースが成功したら結果をタプルで返すパーサ
  * @param parsers
  */
-export const seq =
+export const seqParser =
 	<T extends Array<Parser<unknown>>>(...parsers: [...T]): Parser<ParsedSeqValue<T>> =>
 		({ input, position = 0 }) => {
 			const values = [] as ParsedSeqValue<T>

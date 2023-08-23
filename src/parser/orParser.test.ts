@@ -1,11 +1,11 @@
-import { or } from './or.js'
+import { orParser } from './orParser.js'
 import { string } from './string.js'
 import { anyCharOf } from './anyCharOf.js'
-import { seq } from './seq.js'
+import { seqParser } from './seqParser.js'
 
 describe('or parser', () => {
 	describe('or()', () => {
-		const parser = or()
+		const parser = orParser()
 
 		it('入力が空のときは、パースに失敗する', () => {
 			const input = ''
@@ -23,7 +23,7 @@ describe('or parser', () => {
 	})
 
 	describe('or with anyCharOf', () => {
-		const parser = or(
+		const parser = orParser(
 			anyCharOf('a'),
 			anyCharOf('b'),
 			anyCharOf('c'),
@@ -105,7 +105,7 @@ describe('or parser', () => {
 	})
 
 	describe('or with string', () => {
-		const parser = or(
+		const parser = orParser(
 			string('apple'),
 			string('banana'),
 		)
@@ -151,8 +151,8 @@ describe('or parser', () => {
 
 	describe('or and seq', () => {
 		const parser =
-			or(
-				seq(
+			orParser(
+				seqParser(
 					string('banana '),
 					string('apple')
 				),
