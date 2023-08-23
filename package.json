@@ -3,11 +3,21 @@
 	"version": "0.9.0",
 	"description": "Funser is a functional parser and combinator library for TypeScript",
 	"type": "module",
-	"main": "index.js",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": "./dist/index.js",
+		"./parser": "./dist/parser/index.js",
+		"./combinator": "./dist/combinator/index.js"
+	},
+	"files": [
+		"dist"
+	],
+	"sideEffects": false,
 	"scripts": {
 		"preinstall": "npx only-allow pnpm",
 		"clean": "tsc --build --clean",
-		"build": "tsc --build --clean & tsc",
+		"build": "tsc --build --clean & tsc -p ./tsconfig.build.json",
 		"lint": "eslint --ext .ts,.tsx",
 		"lint:fix": "eslint --ext .ts,.tsx --fix",
 		"test": "jest"
