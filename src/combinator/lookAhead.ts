@@ -1,4 +1,4 @@
-import type { Parser } from '../types.js'
+import type { Parser } from '../types/index.js'
 import { pipe } from './pipe.js'
 import { seqParser } from '../parser/seqParser.js'
 import { map } from './map.js'

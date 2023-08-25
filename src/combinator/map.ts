@@ -1,4 +1,4 @@
-import type { Parser } from '../types.js'
+import type { Parser } from '../types/index.js'
 
 /**
  * パーサの結果を変換するコンビネータ

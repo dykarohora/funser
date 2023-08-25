@@ -1,4 +1,4 @@
-import type { Parser } from '../types.js'
+import type { Parser } from '../types/index.js'
 import { pipe } from './pipe.js'
 import { repeat } from './repeat.js'
 

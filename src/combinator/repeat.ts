@@ -1,4 +1,4 @@
-import type { Parser } from '../types.js'
+import type { Parser } from '../types/index.js'
 
 type Payload = {
 	min?: number

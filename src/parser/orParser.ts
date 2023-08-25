@@ -1,4 +1,4 @@
-import type { ParsedOrValue, Parser, ParserOutput } from '../types.js'
+import type { ParsedOrValue, Parser, ParserOutput } from '../types/index.js'
 
 /**
  * 複数のパーサのうち、どれか1つでも成功したら成功とするパーサ

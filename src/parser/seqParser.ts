@@ -1,4 +1,4 @@
-import type { ParsedSeqValue, Parser } from '../types.js'
+import type { ParsedSeqValue, Parser } from '../types/index.js'
 
 /**
  * 複数のパーサを順番に実行し、すべてのパースが成功したら結果をタプルで返すパーサ

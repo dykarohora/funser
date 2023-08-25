@@ -1,4 +1,4 @@
-import type { Parser } from '../types.js'
+import type { Parser } from '../types/index.js'
 
 /**
  * 複数のパーサを順番に評価したとき最初に成功した結果を返すパーサを作るコンビネータ
