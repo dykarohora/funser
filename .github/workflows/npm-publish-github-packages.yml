@@ -15,9 +15,11 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18.x
-      - run: npm ci
-      - run: npm test
-      - run: npm run build
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - run: pnpm install
+      - run: pnpm test
 
   publish-gpr:
     needs: build
@@ -31,7 +33,9 @@ jobs:
         with:
           node-version: 18.x
           registry-url: https://npm.pkg.github.com/
-      - run: npm ci
-      - run: npm publish
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - run: pnpm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
