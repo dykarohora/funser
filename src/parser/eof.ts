@@ -1,11 +1,11 @@
 import type { Parser } from '../types/index.js'
 
-export const eof = <T>(result?: T): Parser<T | undefined> =>
+export const eof: Parser<unknown> =
 	({ input, position = 0 }) =>
 		position === input.length
 			? {
 				type: 'Success',
-				value: result,
+				value: undefined,
 				state: { input, position }
 			}
 			: {
