@@ -1,6 +1,6 @@
 import type { Parser } from '../types/index.js'
 
-export const eof: Parser<unknown> =
+export const eof: Parser<void> =
 	({ input, position = 0 }) =>
 		position === input.length
 			? {
