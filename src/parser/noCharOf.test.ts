@@ -1,5 +1,4 @@
 import { noCharOf } from './noCharOf.js'
-import { pipe, repeat } from '../combinator/index.js'
 
 describe('noCharOf', () => {
 	const parser = noCharOf('ab')
@@ -59,22 +58,4 @@ describe('noCharOf', () => {
 		expect(output.type).toEqual('Failure')
 		expect(output.state.position).toEqual(1)
 	})
-})
-
-it('a', () => {
-	const parser = pipe(
-		noCharOf([`\r`, '\n', '\r\n'].join('')),
-		repeat()
-	)
-
-	const input1 = 'abc\rdef'
-	const input2 = 'abc\r\ndef'
-	const input3 = 'abc\ndef'
-
-	const output1 = parser({ input: input1 })
-	const output2 = parser({ input: input2 })
-	const output3 = parser({ input: input3 })
-
-	const a = input2[4]
-	console.log(input2[3])
 })

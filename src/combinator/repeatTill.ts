@@ -1,5 +1,13 @@
 import type { Parser } from '../types/index.js'
 
+// TODO オプションどうする？
+// tillの結果を含めるかどうか
+// 入力を消費するかどうか
+
+/**
+ * 指定したパーサによるパースが成功するまで、前段のパーサを繰り返し実行するコンビネータ
+ * @param till
+ */
 export const repeatTill =
 	<T, U>(till: Parser<U>) =>
 		(parser: Parser<T>): Parser<[...T[], U]> =>
