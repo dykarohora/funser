@@ -1,6 +1,6 @@
 {
 	"name": "@dykarohora/funser",
-	"version": "1.0.9",
+	"version": "1.0.10",
 	"description": "Funser is a functional parser and combinator library for TypeScript",
 	"repository": {
 		"type": "git",
