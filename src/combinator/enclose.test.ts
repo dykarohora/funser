@@ -36,6 +36,11 @@ describe('enclose', () => {
 			repeat({ min: 1 }),
 			enclose(
 				orParser(string('``'), string('`'))
+				//
+				// pipe(
+				// 	anyCharOf('`'),
+				// 	repeat({ min: 1 }),
+				// )
 			)
 		)
 

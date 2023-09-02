@@ -21,8 +21,11 @@ export const enclose =
 					enclosure
 				),
 				validate(
-					({ value: [prefix, _, postfix] }) =>
-						prefix === postfix
+					({ value: [prefix, _, postfix] }) => Array.isArray(prefix) && Array.isArray(postfix)
+						? prefix.join('') === postfix.join('')
+							? true
+							: { reason: `expecting prefix and postfix to be the same` }
+						: prefix === postfix
 							? true
 							: { reason: `expecting prefix and postfix to be the same` }
 				)
