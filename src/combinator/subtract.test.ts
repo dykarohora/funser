@@ -1,6 +1,7 @@
 import { pipe } from './pipe.js'
-import { anyCharOf, orParser, string } from '../parser/index.js'
+import { anyChar, anyCharOf, orParser, string } from '../parser/index.js'
 import { subtract } from './subtract.js'
+import { repeat } from './repeat.js'
 
 describe('subtract', () => {
 	const parser = pipe(
@@ -67,4 +68,17 @@ describe('subtract', () => {
 		expect(output.value).toEqual('a')
 		expect(output.state.position).toEqual(2)
 	})
+})
+
+it('p', () => {
+	const parser = pipe(
+		anyChar,
+		repeat(),
+		subtract(anyCharOf('b'))
+	)
+
+	const input = 'abc'
+	const output = parser({ input })
+
+	console.log(output)
 })

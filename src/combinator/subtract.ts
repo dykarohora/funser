@@ -4,6 +4,10 @@ import { not } from './not.js'
 import { pipe } from './pipe.js'
 import { map } from './map.js'
 
+/**
+ * 差分パーサを作成するコンビネータ
+ * @param exclude
+ */
 export const subtract =
 	<T, U>(exclude: Parser<U>) =>
 		(parser: Parser<T>): Parser<T> =>
