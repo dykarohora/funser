@@ -10,9 +10,9 @@ type Param = number | SetAction
  * functionを渡した場合はその関数の引数に現在のパース開始位置が渡され、その関数の返り値が次のパース開始位置となる
  * @param position
  */
-export function position<T>(position: number): Combinator<T, T>
-export function position<T>(s: (position: number) => number): Combinator<T, T>
-export function position<T>(param: Param): Combinator<T, T> {
+export function seek<T>(position: number): Combinator<T, T>
+export function seek<T>(s: (position: number) => number): Combinator<T, T>
+export function seek<T>(param: Param): Combinator<T, T> {
 	return (parser: Parser<T>): Parser<T> =>
 		({ input, position = 0 }) => {
 			const result = parser({ input, position })

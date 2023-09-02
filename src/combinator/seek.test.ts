@@ -1,14 +1,14 @@
 import { pipe } from './pipe.js'
 import { anyChar, anyCharOf } from '../parser/index.js'
 import { repeatTill } from './repeatTill.js'
-import { position } from './position.js'
+import { seek } from './seek.js'
 
-describe('position', () => {
+describe('seek', () => {
 	describe('引数に関数を渡した場合は、前段のパーサの結果による次の読み取り位置を関数に適用して次の読み取り位置を決定する', () => {
 		const parser = pipe(
 			anyChar,
 			repeatTill(anyCharOf('!')),
-			position(n => n - 1)
+			seek(n => n - 1)
 		)
 
 		it('入力が"hello"の場合は、パースに失敗する', () => {
@@ -36,7 +36,7 @@ describe('position', () => {
 		const parser = pipe(
 			anyChar,
 			repeatTill(anyCharOf('!')),
-			position(2)
+			seek(2)
 		)
 
 		it('入力が"hello"の場合は、パースに失敗する', () => {
